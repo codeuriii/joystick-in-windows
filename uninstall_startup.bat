@@ -20,5 +20,3 @@ if exist "%destinationPath%\joystick-in-windows.py" (
 ) else (
     echo Le fichier n'existe pas dans le dossier de démarrage.
 )
-
-pause

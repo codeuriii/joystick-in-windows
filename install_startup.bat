@@ -26,4 +26,3 @@ REM Copie le fichier vers le dossier de démarrage
 copy /Y "%sourcePath%" "%destinationPath%"
 
 echo Copié avec succès !
-pause
