@@ -1,30 +1,12 @@
 
 import os
-import sys
-
-try:
-    import pygame
-    from pynput.mouse import Button
-    from pynput.keyboard import Key
-    import pynput
-    import pyautogui
-    import time
+import pygame
+from pynput.mouse import Button
+from pynput.keyboard import Key
+import pynput
+import pyautogui
+import time
     
-except ImportError:
-    print("Missing modules!")
-    print("Installing...")
-
-    if sys.platform == 'win32':
-        version = "py"
-    elif sys.platform == 'darwin':
-        version = "python"
-    else:
-        version = "python3"
-
-    modules = ["pygame", "pynput", "pyautogui"]
-
-    for module in modules:
-        os.system(f"{version} -m install {module}")
 
 pygame.init()
 mouse = pynput.mouse.Controller()
