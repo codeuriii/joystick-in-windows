@@ -23,6 +23,8 @@ clicked_moin = False
 clicked_fleche_bas = False
 clicked_l = False
 clicked_r = False
+clicked_retour = False
+clicked_pasretour = False
 valid = True
 clicked_valid = False
 
@@ -56,6 +58,9 @@ if joystick_count > 0:
             
             # les boutons seront les clicks de souris
             buttons = [joystick.get_button(i) for i in range(joystick.get_numbuttons())]
+            buttons.extend(reversed([axes.pop(), axes.pop()]))
+            buttons[-1] = 1 if buttons[-1] > 0 else 0
+            buttons[-2] = 1 if buttons[-2] > 0 else 0
             if valid:
                 # bouger la souris naturellement
                 first_joy_stick = axes[0:2]
@@ -134,7 +139,7 @@ if joystick_count > 0:
                     clicked_home = False
 
                 # screen -> imp ecran
-                screen = buttons[-1]
+                screen = buttons[-3]
                 if screen == 1:
                     if not clicked_screen:
                         # Récupérer l'image capturée
@@ -233,6 +238,26 @@ if joystick_count > 0:
                     # print("l realase")
                     clicked_l = False
 
+            # Retour (alt + <-)
+            if buttons[13] == 1:
+                if not clicked_retour:
+                    keyboard.press(Key.alt)
+                    keyboard.tap(Key.left)
+                    keyboard.release(Key.alt)
+                    clicked_retour = True
+            elif clicked_retour:
+                clicked_retour = False
+            
+            # Pas retour (alt + ->)
+            if buttons[14] == 1:
+                if not clicked_pasretour:
+                    keyboard.press(Key.alt)
+                    keyboard.tap(Key.right)
+                    keyboard.release(Key.alt)
+                    clicked_pasretour = True
+            elif clicked_pasretour:
+                clicked_pasretour = False
+
             if buttons[7] == buttons[8] == 1:
                 clicked_valid = True
             else:
@@ -242,9 +267,6 @@ if joystick_count > 0:
                     else:
                         valid = True
                     clicked_valid = False
-
-
-            # print(buttons)
 
             # Réguler le FPS
             clock.tick(target_fps)
